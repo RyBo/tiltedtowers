@@ -1,43 +1,27 @@
 import React from "react";
 import { Button, Icon,  Segment } from "semantic-ui-react";
 
+const artistsInfo = ['Nirvana', 'Metallica', 'Smashing Pumpkins', 'AC/DC', 'Pink Floyd']; 
+
 const Artists = (props) => {
+
+	const artistPlaylists = artistsInfo.map(name => {
+		return (
+		<Segment>
+		<Button fluid animated='fade' onClick={props.onClick}>
+      <Button.Content visible>{name}</Button.Content>
+      <Button.Content hidden>
+        <Icon name='right arrow' />
+      </Button.Content>
+    </Button>
+    </Segment>
+		);
+	});
 
 	return (
 		<div>
-		<Segment>
-		<Button fluid animated='fade' onClick={props.onClick}>
-      <Button.Content visible>Nirvana</Button.Content>
-      <Button.Content hidden>
-        <Icon name='right arrow' />
-      </Button.Content>
-    </Button>
-    </Segment>
-		<Segment>
-		<Button fluid animated='fade'>
-      <Button.Content visible>Metallica</Button.Content>
-      <Button.Content hidden>
-        <Icon name='right arrow' />
-      </Button.Content>
-    </Button>
-    </Segment>
- 		<Segment>
-		<Button fluid animated='fade'>
-      <Button.Content visible>Iron Maiden</Button.Content>
-      <Button.Content hidden>
-        <Icon name='right arrow' />
-      </Button.Content>
-    </Button>
-    </Segment>
-    <Segment>
-		<Button fluid animated='fade'>
-      <Button.Content visible>Foo Fighters</Button.Content>
-      <Button.Content hidden>
-        <Icon name='right arrow' />
-      </Button.Content>
-    </Button>
-    </Segment>
-   </div>
+			{artistPlaylists}
+		</div>
 	);
 }
 

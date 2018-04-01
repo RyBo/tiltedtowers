@@ -5,13 +5,12 @@ import ToggleDisplay from "react-toggle-display";
 import Tab from "./Tab";
 
 const TabBar = (props) => {
-    const {tabs, currentTab, onTabClick, onPlaylistClick, ...otherProps} = props;
+	const {tabs, currentTab, onTabClick, onPlaylistClick, ...otherProps} = props;
 
-    const tabItems = tabs.map(tabInfo => {
-        const {name, label} = tabInfo;
+	const tabItems = tabs.map(tabInfo => {
+		const {name, label} = tabInfo;
 
-
-        return (
+		return (
             <Tab
                 key={name}
                 name={name}
@@ -19,8 +18,8 @@ const TabBar = (props) => {
                 active={currentTab === name}
                 onClick={onTabClick}
             />
-        );
-    });
+		);
+	});
 
   const tabPanels = tabs.map(tabInfo => {
   	const {name, component: TabComponent} = tabInfo;

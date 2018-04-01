@@ -9,8 +9,8 @@
 
 .App-header {
   background-color: #5a42c7;
-  height: 60px;
-  padding: 20px;
+  height: 45px;
+  padding: 5px;
   color: white;
 	text-align: left;
 }
@@ -29,6 +29,10 @@
 
 .ui.steps .step.active {
 	background: #f1eff9;
+}
+
+.ui.fluid.button {
+	height: 60px;
 }
 
 @keyframes App-logo-spin {
