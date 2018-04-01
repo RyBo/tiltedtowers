@@ -26,7 +26,7 @@ const TabBar = (props) => {
 
   	return (
   		<ToggleDisplay show={name === currentTab} key={name}>
-  			<TabComponent onClick={onPlaylistClick}/>
+  			<TabComponent  onClick={onPlaylistClick} />
   		</ToggleDisplay>
   	)
   });

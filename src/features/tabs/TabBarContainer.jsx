@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import StepContainer from "../steps/StepContainer";
+import { Step } from 'semantic-ui-react';
 import TabBar from "./TabBar";
 
 export default class TabBarContainer extends Component {
@@ -15,6 +15,8 @@ export default class TabBarContainer extends Component {
             learnActive : false,
             songDisabled : true,
             learnDisabled : true,
+            playlist : '',
+            song : '',
         } ;
     }
 
@@ -26,6 +28,8 @@ export default class TabBarContainer extends Component {
 
   	onPlaylistClick = (name) => {
   		this.setState({
+				playlist : name,
+
 				playlistActive : false,
 				songActive : true,
 				songDisabled : false,
@@ -34,6 +38,8 @@ export default class TabBarContainer extends Component {
 
   	onSongClick = (name) => {
   		this.setState({
+				song : name,
+
   			songActive : false,
   			learnActive : true,
   			learnDisabled : false,
@@ -48,10 +54,12 @@ export default class TabBarContainer extends Component {
 				  { key: 'song', icon: 'music', title: 'Song', description: 'Select a song', active : this.state.songActive, disabled : this.state.songDisabled },
 				  { key: 'learn', icon: 'new pied piper', title: 'Learn', description: 'Learn to play!', active : this.state.learnActive, disabled : this.state.learnDisabled },
 				];
+				const playlist = this.state.playlist;
 
         return (
 					<div>
-						<StepContainer items={steps} />
+					  <h1>{playlist}</h1>
+						<Step.Group items={steps} />
             <TabBar
                 {...otherProps}
                 currentTab={currentTab}

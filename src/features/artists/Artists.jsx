@@ -7,8 +7,8 @@ const Artists = (props) => {
 
 	const artistPlaylists = artistsInfo.map(name => {
 		return (
-		<Segment>
-		<Button fluid animated='fade' onClick={props.onClick}>
+		<Segment key={name} name={name}>
+		<Button fluid animated='fade' name={name} onClick={(e) => props.onClick(name,e)}>
       <Button.Content visible>{name}</Button.Content>
       <Button.Content hidden>
         <Icon name='right arrow' />

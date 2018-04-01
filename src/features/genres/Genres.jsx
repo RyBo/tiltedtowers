@@ -7,7 +7,7 @@ const Genre = (props) => {
 
 	const genrePlaylists = genreInfo.map(name => {
 		return (
-		<Segment>
+		<Segment key={name}>
 		<Button fluid animated='fade' onClick={props.onClick}>
       <Button.Content visible>{name}</Button.Content>
       <Button.Content hidden>
