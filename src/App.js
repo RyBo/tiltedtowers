@@ -3,6 +3,7 @@ import { Header,Container } from "semantic-ui-react";
 import TabBarContainer from "./features/tabs/TabBarContainer";
 import Artists from "./features/artists/Artists";
 import Genres from "./features/genres/Genres";
+import Songs from "./features/songs/Songs";
 import './App.css';
 
 const Custom = () => <div>Custom Playlists</div>;
@@ -10,6 +11,7 @@ const Custom = () => <div>Custom Playlists</div>;
 class App extends Component {
 
 	render() {
+		const songs = (<Songs />);
 		const tabs = [
 				{name : "artists", label : "Artists", component : Artists,},
 				{name : "genres",  label : "Genres",  component : Genres,},
@@ -22,7 +24,7 @@ class App extends Component {
 					<Header inverted as="h1">tilted towers</Header>
 				</div>
 				<Container>
-					<TabBarContainer tabs={tabs} size="massive" />
+					<TabBarContainer tabs={tabs} songs={songs} size="massive" />
 				</Container>
 			</div>
 		);

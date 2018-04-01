@@ -47,7 +47,7 @@ export default class TabBarContainer extends Component {
   	}
 
     render() {
-        const {tabs, ...otherProps} = this.props;
+        const {tabs, songs, ...otherProps} = this.props;
         const currentTab = this.state.currentTab;
 				const steps = [ 
 				  { key: 'playlist', icon: 'spotify', title: 'Playlist', description: 'Choose a playlist', active : this.state.playlistActive  },
@@ -56,19 +56,20 @@ export default class TabBarContainer extends Component {
 				];
 				const playlist = this.state.playlist;
 
+				const display = this.state.playlistActive
+												? ( <TabBar {...otherProps} currentTab={currentTab} 
+																		onTabClick={this.onTabClick} 
+																		onPlaylistClick={this.onPlaylistClick} 
+																		tabs={tabs}  /> )
+
+												: ( <h1>{playlist}{songs}</h1>);
         return (
-					<div>
-					  <h1>{playlist}</h1>
-						<Step.Group items={steps} />
-            <TabBar
-                {...otherProps}
-                currentTab={currentTab}
-                onTabClick={this.onTabClick}
-          			onPlaylistClick={this.onPlaylistClick}
-                tabs={tabs} 
-            />
-          </div>
-        );
+								<div>
+									<Step.Group items={steps} />
+									{display}
+
+								</div>
+							);
     }
 }
 
