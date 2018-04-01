@@ -22,11 +22,11 @@ const TabBar = (props) => {
 	});
 
   const tabPanels = tabs.map(tabInfo => {
-  	const {name, component: TabComponent} = tabInfo;
+  	const {name, component: TabComponent, items} = tabInfo;
 
   	return (
   		<ToggleDisplay show={name === currentTab} key={name}>
-  			<TabComponent  onClick={onPlaylistClick} />
+  			<TabComponent  onClick={onPlaylistClick} playlist={items}/>
   		</ToggleDisplay>
   	)
   });

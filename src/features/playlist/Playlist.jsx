@@ -1,11 +1,9 @@
 import React from "react";
 import { Button, Icon,  Segment } from "semantic-ui-react";
 
-const artistsInfo = ['Nirvana', 'Metallica', 'Smashing Pumpkins', 'AC/DC', 'Pink Floyd']; 
+const Playlist = (props) => {
 
-const Artists = (props) => {
-
-	const artistPlaylists = artistsInfo.map(name => {
+	const listData = props.playlist.map(name => {
 		return (
 		<Segment key={name} name={name}>
 		<Button fluid animated='fade' name={name} onClick={(e) => props.onClick(name,e)}>
@@ -20,9 +18,9 @@ const Artists = (props) => {
 
 	return (
 		<div>
-			{artistPlaylists}
+			{listData}
 		</div>
 	);
 }
 
-export default Artists;
+export default Playlist;

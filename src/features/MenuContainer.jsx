@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Step } from 'semantic-ui-react';
-import TabBar from "./TabBar";
+import TabBar from "./tabs/TabBar";
 
-export default class TabBarContainer extends Component {
+export default class MenuContainer extends Component {
     constructor(props) {
         super(props);
         const {tabs = [{name : null}]} = props;
