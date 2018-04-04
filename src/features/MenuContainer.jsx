@@ -27,20 +27,39 @@ export default class MenuContainer extends Component {
         } ;
     }
 
-  getAuthToken = (name) => {
-		const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : SpotifyBase64ID};
-  	const data = qs.stringify({'grant_type' : 'client_credentials'});
+  	componentWillMount() {
+  		this.getAuthToken();
+  	}
 
-  	axios.post('/authenticate', data, {headers: headers})
+	  getAuthToken = (name) => {
+			const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : SpotifyBase64ID};
+  		const data = qs.stringify({'grant_type' : 'client_credentials'});
+
+  		axios.post('/authenticate', data, {headers: headers})
   			 .then((response) => {
   			 		console.log(response.data['access_token']);
-  			 	  this.setState({SpotifyAuthToken : response.data['access_token']})
+  			 	  this.setState({SpotifyAuthToken : response.data['access_token']}, () => {
+  			 	  	this.getPlaylists();
+  			 	  })
   			 })
   			.catch((error) => {
   				console.log(error);
   			})
-  }
+  	}
 
+  	getPlaylists = (name) => {
+
+			const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
+			console.log(headers);
+
+			axios.get('/api/users/11166007198/playlists', {headers: headers})
+				.then((response) => {
+					console.log(response.data);
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+  	}
 
     onTabClick = (name) => {
         this.setState({
@@ -81,7 +100,7 @@ export default class MenuContainer extends Component {
 
 				const display = this.state.playlistActive
 												? ( <TabBar {...otherProps} currentTab={currentTab} 
-																		onTabClick={this.getAuthToken} 
+																		onTabClick={this.onTabClick} 
 																		onPlaylistClick={this.onPlaylistClick} 
 																		tabs={tabs}  /> )
 
