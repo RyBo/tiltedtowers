@@ -3,6 +3,7 @@ import { Button, Icon,  Segment } from "semantic-ui-react";
 
 const Playlist = (props) => {
 
+	console.log(props.playlist);
 	const listData = props.playlist.map(name => {
 		return (
 		<Segment key={name} name={name}>
@@ -18,7 +19,7 @@ const Playlist = (props) => {
 
 	return (
 		<div>
-			{listData}
+		{listData}
 		</div>
 	);
 }

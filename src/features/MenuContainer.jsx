@@ -24,12 +24,15 @@ export default class MenuContainer extends Component {
             song : 'Select a Song',
 
             SpotifyAuthToken : '',
-        } ;
+
+          	playlists : '[]',
+        };
     }
 
-  	componentWillMount() {
+/*  	componentWillMount() {
   		this.getAuthToken();
   	}
+*/
 
 	  getAuthToken = (name) => {
 			const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : SpotifyBase64ID};
@@ -54,7 +57,9 @@ export default class MenuContainer extends Component {
 
 			axios.get('/api/users/11166007198/playlists', {headers: headers})
 				.then((response) => {
-					console.log(response.data);
+					console.log(response.data['items']);
+					this.setState({playlists : response.data['items']});
+
 				})
 				.catch((error) => {
 					console.log(error);
