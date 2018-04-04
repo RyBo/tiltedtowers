@@ -1,0 +1,4 @@
+import React from "react";
+
+const SpotifyBase64ID = "Basic <BASE64 encoded clientid:cliensecret>";
+export default SpotifyBase64ID;
