@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Image } from "semantic-ui-react";
+import { Segment, Button, Image } from "semantic-ui-react";
 
 const Playlists = (props) => {
 
@@ -20,7 +20,9 @@ const Playlists = (props) => {
 
 	return (
 		<div>
+		<Segment raised color="violet">
 		{lists}
+		</Segment>
 		</div>
 	);
 }
