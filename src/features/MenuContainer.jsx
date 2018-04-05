@@ -16,6 +16,8 @@ export default class MenuContainer extends Component {
             songDisabled : true,
             learnDisabled : true,
 
+          	activeStep : 'playlist',
+
             playlist : 'Choose a Playlist',
           	playlistHref : '',
             song : 'Select a Song',
@@ -23,63 +25,43 @@ export default class MenuContainer extends Component {
         };
     }
 
-  	onPlaylistClick = (name,href) => {
+  	handlePlaylistClick = (name,href) => {
   		this.setState({
 				playlist : name,
 				playlistHref : href,
-
-				playlistActive : false,
-				songActive : true,
+				activeStep : 'song',
 				songDisabled : false,
 
   		});
   		this.props.loadSongs(href);
   	}
 
-  	onSongClick = (name) => {
+  	handleSongClick = (name) => {
   		this.setState({
 				song : name,
-  			songActive : false,
-  			learnActive : true,
+				activeStep : 'learn',
   			learnDisabled : false,
   		});
   	}
 
-  	onPlayStepClick = (name) => {
+  	handleStepClick = (e, {name}) => {
   		this.setState({
-  			playlistActive : true,
-  			songActive : false,
-  			learnActive : false,
-  		});
-  	}
-
-  	onSongStepClick = (name) => {
-  		this.setState({
-				playlistActive : false,
-  			songActive : true,
-  			learnActive : false,
-  		});
-  	}
-
-  	onLearnStepClick = (name) => {
-  		this.setState({
-				playlistActive : false,
-  			songActive : false,
-  			learnActive : true,
+  			activeStep : name
   		});
   	}
 
     render() {
+    	  const activeStep = this.state.activeStep;
         const {playlists, songs} = this.props;
 				const steps = [ 
-				  { key: 'playlist', icon: 'spotify', title: 'Playlist', description: this.state.playlist, active : this.state.playlistActive, onClick : this.onPlayStepClick },
-				  { key: 'song', icon: 'music', title: 'Song', description: this.state.song, active : this.state.songActive, disabled : this.state.songDisabled, onClick: this.onSongStepClick },
-				  { key: 'learn', icon: 'new pied piper', title: 'Learn', description: 'Learn to play!', active : this.state.learnActive, disabled : this.state.learnDisabled, onClick: this.onLearnStepClick},
+				  { key: 'playlist', name: 'playlist', icon: 'spotify', title: 'Playlist', description: this.state.playlist, active : activeStep === 'playlist',  onClick : this.handleStepClick},
+				  { key: 'song', name: 'song', icon: 'music', title: 'Song', description: this.state.song, active : activeStep === 'song', disabled : this.state.songDisabled, onClick: this.handleStepClick},
+				  { key: 'learn', name: 'learn', icon: 'new pied piper', title: 'Learn', description: 'Learn to play!', active : activeStep === 'learn', disabled : this.state.learnDisabled, onClick: this.handleStepClick},
 				];
 
-				const display = this.state.playlistActive ? (<Playlists playlists={playlists} onClick={this.onPlaylistClick}/>)
-												: this.state.songActive ? ( <Songs songs={songs} onClick={this.onSongClick} />)
-														: ( <Learn onClick={this.onSongClick} />);
+				const display = activeStep === 'playlist' ? (<Playlists playlists={playlists} onClick={this.handlePlaylistClick}/>)
+												: activeStep === 'song' ? ( <Songs songs={songs} onClick={this.handleSongClick} />)
+														: ( <Learn onClick={this.handleSongClick} />);
         return (
 								<div>
 									<Step.Group items={steps} />

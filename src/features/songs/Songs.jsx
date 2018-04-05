@@ -6,10 +6,11 @@ const Songs = (props) => {
 	const tracks = props.songs.map((name,i) => {
 		const song = JSON.parse(name);
 		const artist = song.track.artists[0].name;
+		const album = song.track.album.name;
 		return (
 		<Button fluid basic animated key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, e)}>
       <Button.Content visible>
-      	{song.track.name} - {artist}
+      	{song.track.name} - {artist} ({album})
       </Button.Content>
       <Button.Content hidden>
     		<Icon name='right arrow' />
