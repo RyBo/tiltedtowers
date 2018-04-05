@@ -11,4 +11,3 @@ const Tab = ({name, label, onClick, active}) => (
 );
 
 export default Tab;
-

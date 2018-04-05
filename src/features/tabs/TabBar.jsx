@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Menu } from "semantic-ui-react";
+import { Segment } from "semantic-ui-react";
 import ToggleDisplay from "react-toggle-display";
 
 import Tab from "./Tab";
@@ -33,16 +33,9 @@ const TabBar = (props) => {
 
     return (
         <div>
-      		<Grid columns={2} divided>
-      			<Grid.Column width={3}>
-            <Menu fluid vertical tabular {...otherProps}>
-                {tabItems}
-            </Menu>
-      			</Grid.Column>
-      			<Grid.Column width={10}>
+      		<Segment raised color="purple">
       					{tabPanels}
-      			</Grid.Column>
-      		</Grid>
+      		</Segment>
         </div>
     );
 }

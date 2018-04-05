@@ -12,8 +12,6 @@ import Songs from "./features/songs/Songs";
 import './App.css';
 
 const Custom = () => <div>Custom Playlists</div>;
-const artistPlaylist = ['Nirvana','Metallica','Foo Fighters','AC/DC'];
-const genrePlaylist  = ['Rock','Metal','Alternative','Acoustic'];
 
 class App extends Component {
 	constructor(props) {
@@ -51,13 +49,15 @@ class App extends Component {
 		axios.get('/api/users/rabidowl/playlists', {headers: headers})
 			.then((response) => {
 				console.log(response.data['items']);
-				const lists = response.data['items'].map(function(item, index) {
+				const playlists = response.data['items'].map(function(item, index) {
+
 					return (
-						<p>{item['name']}</p>
+						JSON.stringify(item)
 					);
 				});
-				
-				this.setState({playlists : lists});
+
+			
+				this.setState({playlists : playlists });
 			})
 			.catch((error) => {
 				console.log(error);
@@ -68,8 +68,8 @@ class App extends Component {
 		const songs = (<Songs />);
 		const tabs = [
 				{name : "artists", label : "Artists", component : Playlist, items : this.state.playlists, },
-				{name : "genres",  label : "Genres",  component : Playlist, items : genrePlaylist, },
-				{name : "custom",  label : "Custom",  component : Custom, items: artistPlaylist, },
+				{name : "genres",  label : "Genres",  component : Playlist, items : this.state.playlists, },
+				{name : "custom",  label : "Custom",  component : Custom, items: this.state.playlists, },
 		];
 
 		return (
