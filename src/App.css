@@ -36,9 +36,9 @@
 }
 
 .ui.fluid.button {
-	height: 170px;
+	height: 30px;
 }
 
 .ui.animated.button .hidden.content {
-	top: 35%;
+	top: 50%;
 }

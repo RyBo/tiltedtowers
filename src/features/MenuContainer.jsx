@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Step } from 'semantic-ui-react';
-import TabBar from "./tabs/TabBar";
+
+import Playlists from './playlists/Playlists';
+import Songs from './songs/Songs';
 
 export default class MenuContainer extends Component {
     constructor(props) {
         super(props);
-        const {tabs = [{name : null}]} = props;
-        const firstTab = tabs[0];
 
         this.state = {
-            currentTab : firstTab.name,
           	playlistActive : true,
           	songActive : false,
             learnActive : false,
@@ -17,32 +16,28 @@ export default class MenuContainer extends Component {
             learnDisabled : true,
 
             playlist : 'Choose a Playlist',
+          	playlistHref : '',
             song : 'Select a Song',
 
         };
     }
 
-    onTabClick = (name) => {
-        this.setState({
-        	currentTab : name,
-        });
-    }
-
-  	onPlaylistClick = (name) => {
+  	onPlaylistClick = (name,href) => {
   		this.setState({
 				playlist : name,
+				playlistHref : href,
 
 				playlistActive : false,
 				songActive : true,
 				songDisabled : false,
 
   		});
+  		this.props.loadSongs(href);
   	}
 
   	onSongClick = (name) => {
   		this.setState({
 				song : name,
-
   			songActive : false,
   			learnActive : true,
   			learnDisabled : false,
@@ -50,27 +45,20 @@ export default class MenuContainer extends Component {
   	}
 
     render() {
-        const {tabs, songs, ...otherProps} = this.props;
-        const currentTab = this.state.currentTab;
+        const {playlists, songs} = this.props;
 				const steps = [ 
 				  { key: 'playlist', icon: 'spotify', title: 'Playlist', description: this.state.playlist, active : this.state.playlistActive  },
 				  { key: 'song', icon: 'music', title: 'Song', description: this.state.song, active : this.state.songActive, disabled : this.state.songDisabled },
 				  { key: 'learn', icon: 'new pied piper', title: 'Learn', description: 'Learn to play!', active : this.state.learnActive, disabled : this.state.learnDisabled },
 				];
-				const playlist = this.state.playlist;
 
 				const display = this.state.playlistActive
-												? ( <TabBar {...otherProps} currentTab={currentTab} 
-																		onTabClick={this.onTabClick} 
-																		onPlaylistClick={this.onPlaylistClick} 
-																		tabs={tabs}  /> )
-
-												: ( <h1>{playlist}{songs}</h1>);
+												? (<Playlists playlists={playlists} onClick={this.onPlaylistClick}/>)
+												: ( <Songs songs={songs} onClick={this.onSongClick} />);
         return (
 								<div>
 									<Step.Group items={steps} />
 									{display}
-
 								</div>
 							);
     }
