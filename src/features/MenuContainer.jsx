@@ -3,6 +3,7 @@ import { Step } from 'semantic-ui-react';
 
 import Playlists from './playlists/Playlists';
 import Songs from './songs/Songs';
+import Learn from './learn/Learn';
 
 export default class MenuContainer extends Component {
     constructor(props) {
@@ -78,7 +79,7 @@ export default class MenuContainer extends Component {
 
 				const display = this.state.playlistActive ? (<Playlists playlists={playlists} onClick={this.onPlaylistClick}/>)
 												: this.state.songActive ? ( <Songs songs={songs} onClick={this.onSongClick} />)
-														: ( <Songs songs={songs} onClick={this.onSongClick} />);
+														: ( <Learn onClick={this.onSongClick} />);
         return (
 								<div>
 									<Step.Group items={steps} />
@@ -87,4 +88,3 @@ export default class MenuContainer extends Component {
 							);
     }
 }
-

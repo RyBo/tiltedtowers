@@ -24,7 +24,7 @@
 }
 
 .ui.steps .step {
-	min-width: 210px;
+	min-width: 255px;
 }
 
 .ui.steps .step.active {
