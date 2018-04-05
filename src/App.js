@@ -30,7 +30,6 @@ class App extends Component {
 
 		axios.post('/authenticate', data, {headers: headers})
 			.then((response) => {
-				console.log(response.data['access_token']);
 				this.setState({SpotifyAuthToken : response.data['access_token']}, () => {
 					this.getPlaylists();
 				})
@@ -61,11 +60,9 @@ class App extends Component {
 	}
 
 	getSongs = (href) => {
-		console.log(href);
 		const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
 		axios.get('/api/' + href, {headers: headers})
 			.then((response) => {
-				console.log(response.data['items']);
 				const songs = response.data['items'].map(function(item, index) {
 
 					return (

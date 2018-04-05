@@ -7,7 +7,7 @@ const Playlists = (props) => {
 		const playlist = JSON.parse(name);
 		const href = playlist.tracks.href.substring(26);
 		return (
-		<Button basic rounded color="violet" animated='fade' key={playlist.id} name={playlist.name} onClick={(e) => props.onClick(playlist.name, href, e)}>
+		<Button basic color="violet" animated='fade' key={playlist.id} name={playlist.name} onClick={(e) => props.onClick(playlist.name, href, e)}>
       <Button.Content visible>
 				<Image src={playlist.images[0].url} size='small' circular />
       </Button.Content>
