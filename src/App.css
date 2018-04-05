@@ -20,6 +20,7 @@
 
 .ui.container {
 	padding-top: 15px;
+	width: 60%;
 }
 
 .ui.steps .step {
@@ -30,6 +31,14 @@
 	background: #f1eff9;
 }
 
+.ui.button {
+	margin: 0em 1.25em 1.25em 0em;
+}
+
 .ui.fluid.button {
 	height: 170px;
+}
+
+.ui.animated.button .hidden.content {
+	top: 35%;
 }

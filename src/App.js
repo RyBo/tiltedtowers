@@ -77,7 +77,7 @@ class App extends Component {
 				<div className="App-header">
 					<Header inverted as="h1">tilted towers</Header>
 				</div>
-				<Container>
+				<Container width='60%'>
 					<MenuContainer tabs={tabs} songs={songs} size="massive" />
 				</Container>
 			</div>

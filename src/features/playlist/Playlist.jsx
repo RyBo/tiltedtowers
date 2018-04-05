@@ -4,20 +4,18 @@ import { Button, Icon, Image, Segment } from "semantic-ui-react";
 const Playlist = (props) => {
 
 	const finaldata = props.playlist.map((name,i) => {
-		const artist = JSON.parse(name);
-		console.log(artist);
+		const playlist = JSON.parse(name);
 		return (
-		<Button animated='fade' name={artist.name} onClick={(e) => props.onClick(artist.name,e)}>
+		<Button basic rounded color="violet" animated='fade' key={playlist.id} name={playlist.name} onClick={(e) => props.onClick(playlist.name,e)}>
       <Button.Content visible>
-				<Image src={artist.images[0].url} size='small' rounded />
+				<Image src={playlist.images[0].url} size='small' circular />
       </Button.Content>
       <Button.Content hidden>
-    		<h2>{artist.name}</h2>
+    		<h2>{playlist.name}</h2>
       </Button.Content>
     </Button>
 		);
 	});
-
 
 	return (
 		<div>
