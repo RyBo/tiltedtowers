@@ -8,22 +8,15 @@ const Songs = (props) => {
 		const artist = song.track.artists[0].name;
 		const album = song.track.album.name;
 		return (
-		<Button fluid basic animated key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, e)}>
-      <Button.Content visible>
+		<Button fluid key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, e)}>
       	{song.track.name} - {artist} ({album})
-      </Button.Content>
-      <Button.Content hidden>
-    		<Icon name='right arrow' />
-      </Button.Content>
-    </Button>
+   </Button>
 		);
 	});
 
 	return (
 		<div>
-		<Segment raised color="violet">
 		{tracks}
-		</Segment>
 		</div>
 	);
 }

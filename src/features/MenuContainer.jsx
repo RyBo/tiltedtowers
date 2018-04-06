@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Step } from 'semantic-ui-react';
+import { Step, Segment } from 'semantic-ui-react';
 
 import Playlists from './playlists/Playlists';
 import Songs from './songs/Songs';
@@ -65,7 +65,9 @@ export default class MenuContainer extends Component {
         return (
 								<div>
 									<Step.Group items={steps} />
+									<Segment raiased color="purple">
 									{display}
+									</Segment>
 								</div>
 							);
     }

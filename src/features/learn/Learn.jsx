@@ -5,9 +5,7 @@ const Learn = (props) => {
 
 	return (
 		<div>
-		<Segment raised color="violet">
 			<h3>Youtube Tutorial</h3>
-		</Segment>
 		</div>
 	);
 }

@@ -20,9 +20,7 @@ const Playlists = (props) => {
 
 	return (
 		<div>
-		<Segment raised color="violet">
 		{lists}
-		</Segment>
 		</div>
 	);
 }
