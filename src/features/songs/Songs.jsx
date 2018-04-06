@@ -9,7 +9,7 @@ const Songs = (props) => {
 		const album = song.track.album.name;
 		return (
 		<Button fluid key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, e)}>
-      	{song.track.name} - {artist} ({album})
+      	{song.track.name} - {artist}
    </Button>
 		);
 	});
