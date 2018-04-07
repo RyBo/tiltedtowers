@@ -65,7 +65,7 @@ export default class MenuContainer extends Component {
         return (
 								<div>
 									<Step.Group items={steps} />
-									<Segment raiased color="purple">
+									<Segment raised color="purple">
 									{display}
 									</Segment>
 								</div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header,Container } from "semantic-ui-react";
+import { Menu, Icon, Input, Container, Transition } from "semantic-ui-react";
 import axios from 'axios';
 import qs from 'qs';
 
@@ -13,6 +13,7 @@ class App extends Component {
 		super(props);
 
 		this.state = {
+			searchVisible : false,
 			playlist : '',
 			song : '',
 			playlists : [],
@@ -78,16 +79,29 @@ class App extends Component {
 			})
 	}
 
+	toggleSearchVisibility = () => this.setState({ searchVisible : !this.state.searchVisible});
+
 	render() {
+		const visible = this.state.searchVisible;
 
 		return (
 			<div className="App">
-				<div className="App-header">
-					<Header inverted as="h1">tilted towers</Header>
-				</div>
-				<Container width='60%'>
+
+      <Menu text>
+        <Menu.Item className="header-title" name='titled towers'/>
+        <Menu.Menu position='right'>
+          <Menu.Item>
+      			<Transition animation="slide left" visible={visible}>
+	            <Input placeholder='Search Spotify...' />
+      			</Transition>
+      			<Icon name='search' onClick={this.toggleSearchVisibility} />
+          </Menu.Item>
+        </Menu.Menu>
+      </Menu>
+
+      <Container>
 					<MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
-				</Container>
+			</Container>
 			</div>
 		);
 	}

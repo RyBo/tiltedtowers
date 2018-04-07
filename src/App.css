@@ -20,7 +20,7 @@
 
 .ui.container {
 	padding-top: 15px;
-	width: 60%;
+	width: 80%;
 }
 
 .ui.steps .step {
@@ -45,3 +45,31 @@
 .ui.animated.button .hidden.content {
 	top: 50%;
 }
+
+.ui.text.menu {
+	margin: 0;
+	padding: 0;
+	background: #5a42c7;
+}
+
+.ui.text.menu .item {
+	color: white;
+	font-weight: bold;
+}
+
+.header-title {
+	font-size: 25px;
+	text-transform: lowercase;
+}
+
+.ui.menu .item > i.icon {
+	padding-left: 15px;
+	padding-right: 25px;
+}
+
+.ui.menu .item > i.icon:hover {
+	color: grey;
+}
+
+
+
