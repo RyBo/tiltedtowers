@@ -3,7 +3,7 @@ import { Menu, Icon, Input, Container, Transition } from "semantic-ui-react";
 import axios from 'axios';
 import qs from 'qs';
 
-import SpotifyBase64ID from "./features/auth/SpotifyBase64ID";
+import SpotifyBase64ID from "./auth/SpotifyBase64ID";
 import MenuContainer from "./features/MenuContainer";
 
 import './App.css';
@@ -65,18 +65,14 @@ class App extends Component {
 		axios.get('/api/' + href, {headers: headers})
 			.then((response) => {
 				const songs = response.data['items'].map(function(item, index) {
-
-					return (
-						JSON.stringify(item)
-					);
+					return (JSON.stringify(item));
 				});
 
-			
 				this.setState({ songs : songs });
 			})
 			.catch((error) => {
 				console.log(error);
-			})
+			});
 	}
 
 	toggleSearchVisibility = () => this.setState({ searchVisible : !this.state.searchVisible});

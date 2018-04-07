@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Step, Segment } from 'semantic-ui-react';
 
+import YoutubeAPIKey from '../auth/YoutubeAPIKey';
+import axios from 'axios';
+
 import Playlists from './playlists/Playlists';
 import Songs from './songs/Songs';
 import Learn from './learn/Learn';
@@ -20,8 +23,9 @@ export default class MenuContainer extends Component {
 
             playlist : 'Choose a Playlist',
           	playlistHref : '',
+          	artist : '',
             song : 'Select a Song',
-
+          	videos : [],
         };
     }
 
@@ -36,12 +40,15 @@ export default class MenuContainer extends Component {
   		this.props.loadSongs(href);
   	}
 
-  	handleSongClick = (name) => {
+  	handleSongClick = (song,artist) => {
   		this.setState({
-				song : name,
+				song : song,
+				aritist: artist,
 				activeStep : 'learn',
-  			learnDisabled : false,
-  		});
+  			learnDisabled : false
+  		}, () => {
+  			this.searchYoutube(this.state.song,this.state.artist);
+  		})
   	}
 
   	handleStepClick = (e, {name}) => {
@@ -50,9 +57,26 @@ export default class MenuContainer extends Component {
   		});
   	}
 
+    searchYoutube = (song,artist) => {
+    	const search_params = "search?q="+song+" by "+artist+" guitart tutorial" +"&key="+YoutubeAPIKey+"&part=snippet&maxResults=3";
+
+    	axios.get('/youtube/' + search_params)
+      	.then((response) => {
+        	const videos = response.data['items'].map(function(item, index) {
+						return (JSON.stringify(item));
+        	});
+        	this.setState({ videos : videos });
+      	})
+	    .catch((error) => {
+ 	     console.log(error);
+ 	   	});
+  	}
+
+
     render() {
     	  const activeStep = this.state.activeStep;
         const {playlists, songs} = this.props;
+      	const videos = this.state.videos;
 				const steps = [ 
 				  { key: 'playlist', name: 'playlist', icon: 'spotify', title: 'Playlist', description: this.state.playlist, active : activeStep === 'playlist',  onClick : this.handleStepClick},
 				  { key: 'song', name: 'song', icon: 'music', title: 'Song', description: this.state.song, active : activeStep === 'song', disabled : this.state.songDisabled, onClick: this.handleStepClick},
@@ -61,7 +85,7 @@ export default class MenuContainer extends Component {
 
 				const display = activeStep === 'playlist' ? (<Playlists playlists={playlists} onClick={this.handlePlaylistClick}/>)
 												: activeStep === 'song' ? ( <Songs songs={songs} onClick={this.handleSongClick} />)
-														: ( <Learn onClick={this.handleSongClick} />);
+														: ( <Learn videos={videos} onClick={this.handleSongClick} />);
         return (
 								<div>
 									<Step.Group items={steps} />

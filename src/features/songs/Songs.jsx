@@ -7,7 +7,7 @@ const Songs = (props) => {
 		const song = JSON.parse(name);
 		const artist = song.track.artists[0].name;
 		return (
-		<Button fluid key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, e)}>
+		<Button fluid key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, artist, e)}>
       	{song.track.name} - {artist}
    </Button>
 		);
