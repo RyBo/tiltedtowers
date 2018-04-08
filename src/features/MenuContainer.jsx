@@ -58,7 +58,7 @@ export default class MenuContainer extends Component {
   	}
 
     searchYoutube = (song,artist) => {
-    	const search_params = "search?q="+song+" by "+artist+" guitart tutorial" +"&key="+YoutubeAPIKey+"&part=snippet&maxResults=3";
+    	const search_params = "search?q="+song+" by "+artist+" guitar tutorial" +"&key="+YoutubeAPIKey+"&part=snippet&maxResults=3";
 
     	axios.get('/youtube/' + search_params)
       	.then((response) => {
@@ -88,7 +88,7 @@ export default class MenuContainer extends Component {
 														: ( <Learn videos={videos} onClick={this.handleSongClick} />);
         return (
 								<div>
-									<Step.Group items={steps} />
+									<Step.Group widths={3} items={steps} />
 									<Segment raised color="purple">
 									{display}
 									</Segment>
