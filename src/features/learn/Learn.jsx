@@ -20,7 +20,6 @@ const Learn = (props) => {
 				/>	
 			</Segment>
 		);
-		
 	});
 
 	return (
