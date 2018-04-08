@@ -3,6 +3,7 @@ import { Menu, Icon, Input, Container, Transition } from "semantic-ui-react";
 import axios from 'axios';
 import qs from 'qs';
 
+import HeaderMenu from "./features/HeaderMenu";
 import SpotifyBase64ID from "./auth/SpotifyBase64ID";
 import MenuContainer from "./features/MenuContainer";
 
@@ -83,17 +84,7 @@ class App extends Component {
 		return (
 			<div className="App">
 
-      <Menu text>
-        <Menu.Item className="header-title" name='titled towers'/>
-        <Menu.Menu position='right'>
-          <Menu.Item>
-      			<Transition animation="slide left" visible={visible}>
-	            <Input placeholder='Search Spotify...' />
-      			</Transition>
-      			<Icon name='search' onClick={this.toggleSearchVisibility} />
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
+			<HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
 
       <Container>
 					<MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
