@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Menu, Icon, Input, Transition, Modal } from "semantic-ui-react";
+import { Menu, Icon, Input, Transition} from "semantic-ui-react";
 
 class HeaderMenu extends Component {
 	render() {
