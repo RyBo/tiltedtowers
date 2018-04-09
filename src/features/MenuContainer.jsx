@@ -83,14 +83,18 @@ export default class MenuContainer extends Component {
 				  { key: 'learn', name: 'learn', icon: 'pied piper alternate', title: 'Learn', description: 'Learn to play!', active : activeStep === 'learn', disabled : this.state.learnDisabled, onClick: this.handleStepClick},
 				];
 
-				const display = activeStep === 'playlist' ? (<Playlists playlists={playlists} onClick={this.handlePlaylistClick}/>)
-												: activeStep === 'song' ? ( <Songs songs={songs} onClick={this.handleSongClick} />)
+/*				const display = activeStep === 'playlist' ? (<Playlists visible={this.state.playlistActive} playlists={playlists} onClick={this.handlePlaylistClick}/>)
+												: activeStep === 'song' ? ( <Songs visible={this.state.songActive} songs={songs} onClick={this.handleSongClick} />)
 														: ( <Learn videos={videos} onClick={this.handleSongClick} />);
+*/
         return (
 								<div>
 									<Step.Group widths={3} items={steps} />
+
 									<Segment raised color="purple">
-									{display}
+										<Playlists visible={activeStep === 'playlist'} playlists={playlists} onClick={this.handlePlaylistClick}/>
+										<Songs visible={activeStep === 'song'} songs={songs} onClick={this.handleSongClick} />
+										<Learn visible={activeStep === 'learn'} videos={videos} onClick={this.handleSongClick} />
 									</Segment>
 								</div>
 							);

@@ -1,23 +1,28 @@
-import React from "react";
-import { Button  } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Transition, Button } from "semantic-ui-react";
 
-const Songs = (props) => {
+class Songs extends Component {
 
-	const tracks = props.songs.map((name,i) => {
-		const song = JSON.parse(name);
-		const artist = song.track.artists[0].name;
+	render() {
+		const visible = this.props.visible;
+		const tracks = this.props.songs.map((name,i) => {
+			const song = JSON.parse(name);
+			const artist = song.track.artists[0].name;
+			return (
+				<Button fluid key={i} name={song.name} onClick={(e) => this.props.onClick(song.track.name, artist, e)}>
+      		{song.track.name} - {artist}
+   			</Button>
+			);
+		});
+
 		return (
-		<Button fluid key={i} name={song.name} onClick={(e) => props.onClick(song.track.name, artist, e)}>
-      	{song.track.name} - {artist}
-   </Button>
+			<Transition visible={visible} animation="fade right">
+				<div>
+					{tracks}
+				</div>
+			</Transition>
 		);
-	});
-
-	return (
-		<div>
-		{tracks}
-		</div>
-	);
+	}
 }
 
 export default Songs;
