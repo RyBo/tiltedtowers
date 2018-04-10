@@ -21,10 +21,10 @@ export default class MenuContainer extends Component {
 
           	activeStep : 'playlist',
 
-            playlist : 'Choose a Playlist',
+            playlist : 'Choose Playlist',
           	playlistHref : '',
           	artist : '',
-            song : 'Select a Song',
+            song : 'Select Song',
           	videos : [],
         };
     }
@@ -80,16 +80,12 @@ export default class MenuContainer extends Component {
 				const steps = [ 
 				  { key: 'playlist', name: 'playlist', icon: 'spotify', title: 'Playlist', description: this.state.playlist, active : activeStep === 'playlist',  onClick : this.handleStepClick},
 				  { key: 'song', name: 'song', icon: 'music', title: 'Song', description: this.state.song, active : activeStep === 'song', disabled : this.state.songDisabled, onClick: this.handleStepClick},
-				  { key: 'learn', name: 'learn', icon: 'pied piper alternate', title: 'Learn', description: 'Learn to play!', active : activeStep === 'learn', disabled : this.state.learnDisabled, onClick: this.handleStepClick},
+				  { key: 'learn', name: 'learn', icon: 'pied piper alternate', title: 'Learn', description: '', active : activeStep === 'learn', disabled : this.state.learnDisabled, onClick: this.handleStepClick},
 				];
 
-/*				const display = activeStep === 'playlist' ? (<Playlists visible={this.state.playlistActive} playlists={playlists} onClick={this.handlePlaylistClick}/>)
-												: activeStep === 'song' ? ( <Songs visible={this.state.songActive} songs={songs} onClick={this.handleSongClick} />)
-														: ( <Learn videos={videos} onClick={this.handleSongClick} />);
-*/
         return (
 								<div>
-									<Step.Group widths={3} items={steps} />
+									<Step.Group unstackable widths={3} items={steps} />
 
 									<Segment raised color="purple">
 										<Playlists visible={activeStep === 'playlist'} playlists={playlists} onClick={this.handlePlaylistClick}/>

@@ -84,11 +84,11 @@ class App extends Component {
 		return (
 			<div className="App">
 
-			<HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
-
-      <Container>
-					<MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
-			</Container>
+				<HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
+				
+				<Container>
+				<MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
+				</Container>
 			</div>
 		);
 	}

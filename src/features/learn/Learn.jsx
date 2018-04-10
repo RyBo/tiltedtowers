@@ -25,7 +25,7 @@ class Learn extends Component {
 		});
 
 	return (
-			<Transition visible={visible} animation="fade left">
+			<Transition visible={visible} animation="fade left" duration="200">
 				<div>
 					{videos}	
 				</div>

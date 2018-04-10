@@ -16,7 +16,7 @@ class Songs extends Component {
 		});
 
 		return (
-			<Transition visible={visible} animation="fade right">
+			<Transition visible={visible} animation="fade right" duration="200">
 				<div>
 					{tracks}
 				</div>

@@ -22,7 +22,7 @@ class Playlists extends Component {
 
 
 		return (
-			<Transition visible={visible} animation="fade right">
+			<Transition visible={visible} animation="fade right" duration="200">
 				<div>
 				{lists}
 				</div>
