@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Step, Segment } from 'semantic-ui-react';
-
-import YoutubeAPIKey from '../auth/YoutubeAPIKey';
 import axios from 'axios';
 
 import Playlists from './playlists/Playlists';
@@ -43,7 +41,7 @@ export default class MenuContainer extends Component {
   	handleSongClick = (song,artist) => {
   		this.setState({
 				song : song,
-				aritist: artist,
+				artist: artist,
 				activeStep : 'learn',
   			learnDisabled : false
   		}, () => {
@@ -58,7 +56,7 @@ export default class MenuContainer extends Component {
   	}
 
     searchYoutube = (song,artist) => {
-    	const search_params = "search?q="+song+" by "+artist+" guitar lesson+tutorial+how to play" +"&key="+YoutubeAPIKey+"&part=snippet&maxResults=3";
+    	const search_params = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3";
 
     	axios.get('/youtube/' + search_params)
       	.then((response) => {

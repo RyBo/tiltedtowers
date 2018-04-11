@@ -5,10 +5,6 @@
 # dependencies
 /node_modules
 
-/src/auth/SpotifyBase64ID.jsx
-
-/src/auth/YoutubeAPIKey.jsx
-
 # testing
 /coverage
 

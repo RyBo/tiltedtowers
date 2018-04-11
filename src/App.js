@@ -4,7 +4,6 @@ import axios from 'axios';
 import qs from 'qs';
 
 import HeaderMenu from "./features/HeaderMenu";
-import SpotifyBase64ID from "./auth/SpotifyBase64ID";
 import MenuContainer from "./features/MenuContainer";
 
 import './App.css';
@@ -27,7 +26,7 @@ class App extends Component {
 	}
 
 	getAuthToken = (name) => {
-		const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : SpotifyBase64ID};
+		const headers = {'Content-Type' : 'application/x-www-form-urlencoded'};
 		const data = qs.stringify({'grant_type' : 'client_credentials'});
 
 		axios.post('/authenticate', data, {headers: headers})

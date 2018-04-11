@@ -1,3 +1,0 @@
-const YoutubeAPIKey = "YOUR-API-KEY";
-
-export default YoutubeAPIKey;
