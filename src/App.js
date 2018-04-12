@@ -9,88 +9,88 @@ import MenuContainer from "./features/MenuContainer";
 import './App.css';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
+    constructor(props) {
+        super(props);
 
-		this.state = {
-			searchVisible : false,
-			playlist : '',
-			song : '',
-			playlists : [],
-			songs : [],
-		};
-	}
+        this.state = {
+            searchVisible : false,
+            playlist : '',
+            song : '',
+            playlists : [],
+            songs : [],
+        };
+    }
 
-	componentWillMount() {
-		this.getAuthToken();
-	}
+    componentWillMount() {
+        this.getAuthToken();
+    }
 
-	getAuthToken = (name) => {
-		const headers = {'Content-Type' : 'application/x-www-form-urlencoded'};
-		const data = qs.stringify({'grant_type' : 'client_credentials'});
+    getAuthToken = (name) => {
+        const headers = {'Content-Type' : 'application/x-www-form-urlencoded'};
+        const data = qs.stringify({'grant_type' : 'client_credentials'});
 
-		axios.post('/authenticate', data, {headers: headers})
-			.then((response) => {
-				this.setState({SpotifyAuthToken : response.data['access_token']}, () => {
-					this.getPlaylists();
-				})
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-	}
+        axios.post('/authenticate', data, {headers: headers})
+            .then((response) => {
+                this.setState({SpotifyAuthToken : response.data['access_token']}, () => {
+                    this.getPlaylists();
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
-	getPlaylists = (name) => {
-		const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
+    getPlaylists = (name) => {
+        const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
 
-		axios.get('/api/users/rabidowl/playlists', {headers: headers})
-			.then((response) => {
-				const playlists = response.data['items'].map(function(item, index) {
+        axios.get('/api/users/rabidowl/playlists', {headers: headers})
+            .then((response) => {
+                const playlists = response.data['items'].map(function(item, index) {
 
-					return (
-						JSON.stringify(item)
-					);
-				});
+                    return (
+                        JSON.stringify(item)
+                    );
+                });
 
-			
-				this.setState({ playlists : playlists });
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-	}
 
-	getSongs = (href) => {
-		const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
-		axios.get('/api/' + href, {headers: headers})
-			.then((response) => {
-				const songs = response.data['items'].map(function(item, index) {
-					return (JSON.stringify(item));
-				});
+                this.setState({ playlists : playlists });
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
-				this.setState({ songs : songs });
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
+    getSongs = (href) => {
+        const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
+        axios.get('/api/' + href, {headers: headers})
+            .then((response) => {
+                const songs = response.data['items'].map(function(item, index) {
+                    return (JSON.stringify(item));
+                });
 
-	toggleSearchVisibility = () => this.setState({ searchVisible : !this.state.searchVisible});
+                this.setState({ songs : songs });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
-	render() {
-		const visible = this.state.searchVisible;
+    toggleSearchVisibility = () => this.setState({ searchVisible : !this.state.searchVisible});
 
-		return (
-			<div className="App">
+    render() {
+        const visible = this.state.searchVisible;
 
-				<HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
-				
-				<Container>
-				<MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
-				</Container>
-			</div>
-		);
-	}
+        return (
+            <div className="App">
+
+            <HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
+
+            <Container>
+            <MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
+            </Container>
+            </div>
+        );
+    }
 }
 
 export default App;
