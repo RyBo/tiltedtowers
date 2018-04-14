@@ -6,7 +6,7 @@ class HeaderMenu extends Component {
         const visible=this.props.visible;
         return (
             <Menu text>
-            <Menu.Item className="header-title" name='titled towers'/>
+            <Menu.Item className="header-title" name='tilted towers'/>
             <Menu.Menu position='right'>
             <Menu.Item>
             <Transition animation="slide left" visible={visible}>
