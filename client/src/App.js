@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from "semantic-ui-react";
 import axios from 'axios';
-import qs from 'qs';
 
 import HeaderMenu from "./features/HeaderMenu";
 import MenuContainer from "./features/MenuContainer";
@@ -22,37 +21,18 @@ class App extends Component {
     }
 
     componentWillMount() {
-        this.getAuthToken();
-    }
-
-    getAuthToken = (name) => {
-        const headers = {'Content-Type' : 'application/x-www-form-urlencoded'};
-        const data = qs.stringify({'grant_type' : 'client_credentials'});
-
-        axios.post('/authenticate', data, {headers: headers})
-            .then((response) => {
-                this.setState({SpotifyAuthToken : response.data['access_token']}, () => {
-                    this.getPlaylists();
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        this.getPlaylists();
     }
 
     getPlaylists = (name) => {
-        const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
 
-        axios.get('/api/users/rabidowl/playlists', {headers: headers})
+        axios.get('/api/spotify/playlists')
             .then((response) => {
                 const playlists = response.data['items'].map(function(item, index) {
-
                     return (
                         JSON.stringify(item)
                     );
                 });
-
-
                 this.setState({ playlists : playlists });
             })
             .catch((error) => {
@@ -61,13 +41,14 @@ class App extends Component {
     }
 
     getSongs = (href) => {
-        const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
-        axios.get('/api/' + href, {headers: headers})
+        console.log(href);
+//        const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
+
+        axios.get('/api/spotify' + href)
             .then((response) => {
                 const songs = response.data['items'].map(function(item, index) {
                     return (JSON.stringify(item));
                 });
-
                 this.setState({ songs : songs });
             })
             .catch((error) => {

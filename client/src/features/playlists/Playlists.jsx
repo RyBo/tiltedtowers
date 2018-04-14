@@ -18,13 +18,12 @@ class Playlists extends Component {
                     </Button.Content>
                 </Button>
             );
-    });
-
+        });
 
         return (
             <Transition visible={visible} animation="fade right" duration="200">
                 <div>
-                {lists}
+                    {lists}
                 </div>
             </Transition>
         );

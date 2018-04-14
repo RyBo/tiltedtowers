@@ -24,14 +24,14 @@ class Learn extends Component {
             );
         });
 
-    return (
+        return (
             <Transition visible={visible} animation="fade left" duration="200">
                 <div>
                     {videos}    
                 </div>
             </Transition>
         );
-}
+    }
 }
 
 export default Learn;

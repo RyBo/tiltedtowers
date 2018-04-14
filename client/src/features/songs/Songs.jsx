@@ -10,8 +10,8 @@ class Songs extends Component {
             const artist = song.track.artists[0].name;
             return (
                 <Button fluid key={i} name={song.name} onClick={(e) => this.props.onClick(song.track.name, artist, e)}>
-            {song.track.name} - {artist}
-            </Button>
+                    {song.track.name} - {artist}
+                 </Button>
             );
         });
 
