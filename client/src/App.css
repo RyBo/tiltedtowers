@@ -71,5 +71,6 @@
 	color: grey;
 }
 
-
-
+.ui.list {
+    text-align: left;
+}

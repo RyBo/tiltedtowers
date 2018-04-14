@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Transition, Button } from "semantic-ui-react";
+import { List, Transition } from "semantic-ui-react";
 
 class Songs extends Component {
 
@@ -9,17 +9,20 @@ class Songs extends Component {
             const song = JSON.parse(name);
             const artist = song.track.artists[0].name;
             return (
-                <Button fluid key={i} name={song.name} onClick={(e) => this.props.onClick(song.track.name, artist, e)}>
-                    {song.track.name} - {artist}
-                 </Button>
+               <List.Item key={i} onClick={(e) => this.props.onClick(song.track.name, artist, e)}>
+                    <List.Content>
+                        <List.Header>{song.track.name}</List.Header>
+                         {artist} 
+                    </List.Content>
+                </List.Item>
             );
         });
 
         return (
             <Transition visible={visible} animation="fade right" duration="200">
-                <div>
+                <List divided selection relaxed='very' size='big'>
                     {tracks}
-                </div>
+                </List>
             </Transition>
         );
     }
