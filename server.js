@@ -27,17 +27,17 @@ function getAuth() {
 
     return new Promise((resolve, reject) => { 
         axios.post('https://accounts.spotify.com/api/token', data, {headers: headers})
-        .then((response) => {
-            token = response.data['access_token'];
-            hour = moment().hour();
-            authtoken[0] = token;
-            authtoken[1] = hour;
-            return resolve(token);
-        })
-        .catch((error) => {
-            console.log(error);
-            return reject(error);
-        })
+            .then((response) => {
+                token = response.data['access_token'];
+                hour = moment().hour();
+                authtoken[0] = token;
+                authtoken[1] = hour;
+                return resolve(token);
+            })
+            .catch((error) => {
+                console.log(error);
+                return reject(error);
+            })
     });
 }   
 
@@ -55,7 +55,7 @@ app.get('/api/spotify/playlists', (req, res) => {
         })
 });
 
-
+// Get tracks from selected playlist
 app.get('/api/spotify/users/:user/playlists/:playlist/tracks', (req, res) => {
     const user = req.params.user;
     const playlist = req.params.playlist; 
@@ -70,12 +70,23 @@ app.get('/api/spotify/users/:user/playlists/:playlist/tracks', (req, res) => {
         })
 });
 
-/*
-    // Youtube API Access
-app.get('/api/youtube', (req, res) => {
+// Youtube API Access
+app.get('/api/youtube/:artist/:song', (req, res) => {
 
+    const artist = req.params.artist;
+    const song = req.params.song;
+
+    const search_params = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3&key="+auth.youtube;
+
+    axios.get('https://www.googleapis.com/youtube/v3/' + search_params)
+        .then((response) => {
+            res.json(response.data); 
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 });
-*/
+
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

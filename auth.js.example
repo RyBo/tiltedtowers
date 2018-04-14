@@ -1,0 +1,4 @@
+module.exports = {
+    spotify : 'Basic Base64(clientID:clientSecrect)',
+    youtube : 'APIKEY' 
+}

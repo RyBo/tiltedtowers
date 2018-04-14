@@ -10,7 +10,6 @@ class Learn extends Component {
             const id = video.id.videoId;
             const title = video.snippet.title;
             const placeholder = video.snippet.thumbnails.high.url;
-            console.log(video);
 
             return (
                 <Segment key={id}>

@@ -53,9 +53,7 @@ export default class MenuContainer extends Component {
     }
 
     searchYoutube = (song,artist) => {
-        const search_params = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3";
-
-        axios.get('/youtube/' + search_params)
+        axios.get('/api/youtube/'+artist+'/'+song)
         .then((response) => {
             const videos = response.data['items'].map(function(item, index) {
                 return (JSON.stringify(item));
