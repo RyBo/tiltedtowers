@@ -42,7 +42,6 @@ class App extends Component {
 
     getSongs = (href) => {
         console.log(href);
-//        const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + this.state.SpotifyAuthToken};
 
         axios.get('/api/spotify' + href)
             .then((response) => {
@@ -63,12 +62,11 @@ class App extends Component {
 
         return (
             <div className="App">
+                <HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
 
-            <HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
-
-            <Container>
-            <MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
-            </Container>
+                <Container>
+                    <MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
+                </Container>
             </div>
         );
     }
