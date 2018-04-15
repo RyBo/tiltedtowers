@@ -55,6 +55,29 @@ class App extends Component {
             });
     }
 
+    getSearchResults = (query) => {
+        console.log(query);
+        axios.get('/api/spotify/search/'+query)
+            .then((response) => {
+                const albums = response.data['items']['albums'].map(function(item, index) {
+                    return (JSON.stringify(item));
+                });
+                const artists = response.data['items']['artists'].map(function(item, index) {
+                    return (JSON.stringify(item));
+                });
+                const playlists = response.data['items']['playlists'].map(function(item, index) {
+                    return (JSON.stringify(item));
+                });
+                 const songs = response.data['items']['songs'].map(function(item, index) {
+                    return (JSON.stringify(item));
+                });
+                
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     toggleSearchVisibility = () => this.setState({ searchVisible : !this.state.searchVisible});
 
     render() {

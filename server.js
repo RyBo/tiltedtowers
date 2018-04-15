@@ -24,7 +24,7 @@ function getAuth() {
     if (nowTime < expireTime) {
         return;
     } else {
-        console.log("Spotify auth token expired, fetching new one");
+        console.log("Spotify auth token expired, fetching a new one");
     }
 
     var expireTime = new Date();
@@ -43,6 +43,7 @@ function getAuth() {
                 token = response.data['access_token'];
                 authtoken[0] = token;
                 authtoken[1] = expireTime;
+                console.log(authtoken);
                 return resolve(token);
             })
             .catch((error) => {
@@ -91,9 +92,9 @@ app.get('/api/youtube/:artist/:song', (req, res) => {
 
     const artist = req.params.artist;
     const song = req.params.song;
-    const search_params = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3&key="+auth.youtube;
+    const searchParams = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3&key="+auth.youtube;
 
-    axios.get('https://www.googleapis.com/youtube/v3/' + search_params)
+    axios.get('https://www.googleapis.com/youtube/v3/' + searchParams)
         .then((response) => {
             res.json(response.data); 
         })
@@ -102,6 +103,20 @@ app.get('/api/youtube/:artist/:song', (req, res) => {
         });
 });
 
+// Spotify Search Feature
+app.get('/api/spotify/search/:query', (req, res) => {
+
+    const query = req.params.query;
+    const searchParams = 'search?q='+query+'&type=playlist,album,artist&limit=3';
+    
+    axios.get('https://api.spotify.com/v1/' + searchParams)
+        .then((response) => {
+            res.json(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+});
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.

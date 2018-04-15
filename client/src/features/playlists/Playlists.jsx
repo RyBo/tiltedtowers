@@ -9,7 +9,7 @@ class Playlists extends Component {
             const playlist = JSON.parse(name);
             const href = playlist.tracks.href.substring(26);
             return (
-                <Button basic animated='fade' key={playlist.id} name={playlist.name} onClick={(e) => this.props.onClick(playlist.name, href, e)}>
+                <Button basic size='massive' animated='fade' key={playlist.id} name={playlist.name} onClick={(e) => this.props.onClick(playlist.name, href, e)}>
                     <Button.Content visible>
                         <Image src={playlist.images[0].url} size='small' circular />
                     </Button.Content>
