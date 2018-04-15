@@ -4,6 +4,7 @@ const https = require('https');
 const axios = require('axios');
 const qs = require('qs');
 const moment = require('moment');
+const bodyParser = require('body-parser');
 
 const auth = require('./auth');
 
@@ -14,6 +15,8 @@ getAuth();
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Helper function for getting Spotify's auth token
 function getAuth() {
@@ -88,10 +91,10 @@ app.get('/api/spotify/users/:user/playlists/:playlist/tracks', (req, res) => {
 });
 
 // Youtube API Access
-app.get('/api/youtube/:artist/:song', (req, res) => {
+app.post('/api/youtube', (req, res) => {
 
-    const artist = req.params.artist;
-    const song = req.params.song;
+    const artist = req.body.artist;
+    const song = req.body.song;
     const searchParams = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3&key="+auth.youtube;
 
     axios.get('https://www.googleapis.com/youtube/v3/' + searchParams)

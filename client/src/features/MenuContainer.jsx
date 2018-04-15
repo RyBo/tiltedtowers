@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Step, Segment } from 'semantic-ui-react';
 import axios from 'axios';
+import qs from 'qs';
 
 import Playlists from './playlists/Playlists';
 import Songs from './songs/Songs';
@@ -53,7 +54,11 @@ export default class MenuContainer extends Component {
     }
 
     searchYoutube = (song,artist) => {
-        axios.get('/api/youtube/'+artist+'/'+song)
+
+        const headers = {'Content-Type' : 'application/x-www-form-urlencoded'};
+        const body = qs.stringify({'artist' : artist, 'song' : song});
+
+        axios.post('/api/youtube', body, {headers:headers})
         .then((response) => {
             const videos = response.data['items'].map(function(item, index) {
                 return (JSON.stringify(item));
