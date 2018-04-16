@@ -32,8 +32,9 @@ export default class MenuContainer extends Component {
             playlistHref : href,
             activeStep : 'song',
             songDisabled : false,
-        });
+        }, () => {
         this.props.loadSongs(href);
+        })
     }
 
     handleSongClick = (song,artist) => {
@@ -56,7 +57,7 @@ export default class MenuContainer extends Component {
     searchYoutube = (song,artist) => {
 
         const headers = {'Content-Type' : 'application/x-www-form-urlencoded'};
-        const body = qs.stringify({'artist' : artist, 'song' : song});
+        const body = qs.stringify({'instrument' : this.props.instrument, 'artist' : artist, 'song' : song});
 
         axios.post('/api/youtube', body, {headers:headers})
         .then((response) => {

@@ -13,6 +13,7 @@ class App extends Component {
 
         this.state = {
             searchVisible : false,
+            instrument : 'guitar',
             playlist : '',
             song : '',
             playlists : [],
@@ -78,7 +79,7 @@ class App extends Component {
             });
     }
 
-    toggleSearchVisibility = () => this.setState({ searchVisible : !this.state.searchVisible});
+    toggleSearchVisibility = (instrument) => this.setState({ searchVisible : !this.state.searchVisible, instrument: instrument });
 
     render() {
         const visible = this.state.searchVisible;
@@ -88,7 +89,7 @@ class App extends Component {
                 <HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
 
                 <Container>
-                    <MenuContainer playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
+                    <MenuContainer instrument={this.state.instrument} playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
                 </Container>
             </div>
         );

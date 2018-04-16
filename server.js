@@ -93,9 +93,10 @@ app.get('/api/spotify/users/:user/playlists/:playlist/tracks', (req, res) => {
 // Youtube API Access
 app.post('/api/youtube', (req, res) => {
 
+    const instrument = req.body.instrument;
     const artist = req.body.artist;
     const song = req.body.song;
-    const searchParams = "search?q="+artist+" "+song+" guitar lesson+tutorial+how to play&part=snippet&maxResults=3&key="+auth.youtube;
+    const searchParams = "search?q="+artist+" "+ song + " " + instrument + "lesson+tutorial+how to play&part=snippet&maxResults=3&key=" + auth.youtube;
 
     axios.get('https://www.googleapis.com/youtube/v3/' + searchParams)
         .then((response) => {
