@@ -22,7 +22,6 @@ class TTSubMenu extends Component {
 
         <Menu.Item>
           <Menu.Menu>
-
             <Menu.Item name='guitar'>
             <Radio
                 toggle
@@ -43,8 +42,8 @@ class TTSubMenu extends Component {
                 checked={activeItem === 'bass'}
                 onChange={this.handleItemClick}
             />
-
             </Menu.Item>
+
             <Menu.Item name='piano'>
             <Radio
                 toggle
@@ -54,7 +53,6 @@ class TTSubMenu extends Component {
                 checked={activeItem === 'piano'}
                 onChange={this.handleItemClick}
             />
-
             </Menu.Item>
           </Menu.Menu>
         </Menu.Item>
@@ -86,7 +84,7 @@ class HeaderMenu extends Component {
                         </Menu.Item>
                     </Menu.Menu>
                 </Menu>
-                <Transition animation="fade left" visible={visible} duration="350">
+                <Transition animation="fade left" visible={visible} duration="450">
                     <div>
                         <TTSubMenu onClick={this.props.onClick} />
                     </div>
