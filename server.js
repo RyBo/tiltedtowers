@@ -63,7 +63,7 @@ app.get('/api/spotify/playlists', (req, res) => {
 
     const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + authtoken[0] };
 
-    axios.get('https://api.spotify.com/v1/users/rabidowl/playlists', {headers: headers})
+    axios.get('https://api.spotify.com/v1/users/rabidowl/playlists?limit=50', {headers: headers})
         .then((response) => {
             res.json(response.data);
         })
@@ -96,7 +96,7 @@ app.post('/api/youtube', (req, res) => {
     const instrument = req.body.instrument;
     const artist = req.body.artist;
     const song = req.body.song;
-    const searchParams = "search?q="+artist+" "+ song + " " + instrument + "lesson+tutorial+how to play&part=snippet&maxResults=3&key=" + auth.youtube;
+    const searchParams = "search?q="+artist+" "+ song + " " + instrument + "+lesson+tutorial&part=snippet&maxResults=3&key=" + auth.youtube;
 
     axios.get('https://www.googleapis.com/youtube/v3/' + searchParams)
         .then((response) => {
