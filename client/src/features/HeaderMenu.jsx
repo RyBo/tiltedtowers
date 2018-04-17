@@ -69,8 +69,11 @@ class TTSubMenu extends Component {
 }
 
 class HeaderMenu extends Component {
+    state = { visible : false }
+
+    toggleSearch = () => this.setState({ visible : !this.state.visible });
     render() {
-        const visible=this.props.visible;
+        const { visible } =this.state
         return (
         
             <div>
@@ -79,11 +82,11 @@ class HeaderMenu extends Component {
                     <Menu.Item className="header-title" name='tilted towers'/>
                     <Menu.Menu position='right'>
                         <Menu.Item>
-                            <Icon name='ellipsis horizontal' onClick={this.props.onClick} />
+                            <Icon name='ellipsis horizontal' onClick={this.toggleSearch} />
                         </Menu.Item>
                     </Menu.Menu>
                 </Menu>
-                <Transition animation="fade left" visible={visible} duration="400">
+                <Transition animation="fade left" visible={visible} duration="350">
                     <div>
                         <TTSubMenu onClick={this.props.onClick} />
                     </div>

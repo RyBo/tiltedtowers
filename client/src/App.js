@@ -79,14 +79,14 @@ class App extends Component {
             });
     }
 
-    toggleSearchVisibility = (instrument) => this.setState({ searchVisible : !this.state.searchVisible, instrument: instrument });
+    toggleInstrument = (instrument) => this.setState({ instrument : instrument });
 
     render() {
         const visible = this.state.searchVisible;
 
         return (
             <div className="App">
-                <HeaderMenu visible={visible} onClick={this.toggleSearchVisibility} />
+                <HeaderMenu onClick={this.toggleInstrument} />
 
                 <Container>
                     <MenuContainer instrument={this.state.instrument} playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
