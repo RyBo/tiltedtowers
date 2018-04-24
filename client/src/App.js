@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container } from "semantic-ui-react";
 import axios from 'axios';
 
-import HeaderMenu from "./features/HeaderMenu";
-import MenuContainer from "./features/MenuContainer";
+import Main from "./components/Main";
+import HeaderMenu from "./components/menus/HeaderMenu";
 
 import './App.css';
 
@@ -89,7 +89,7 @@ class App extends Component {
                 <HeaderMenu onClick={this.toggleInstrument} />
 
                 <Container>
-                    <MenuContainer instrument={this.state.instrument} playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
+                    <Main instrument={this.state.instrument} playlists={this.state.playlists} songs={this.state.songs} loadSongs={this.getSongs} size="massive" />
                 </Container>
             </div>
         );

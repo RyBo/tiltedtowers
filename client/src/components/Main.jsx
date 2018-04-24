@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import { Step, Segment } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import qs from 'qs';
 
+import Steps from './steps/Steps';
 import Playlists from './playlists/Playlists';
 import Songs from './songs/Songs';
 import Learn from './learn/Learn';
 
-export default class MenuContainer extends Component {
+export default class Main extends Component {
     constructor(props) {
         super(props);
 
@@ -15,8 +16,10 @@ export default class MenuContainer extends Component {
             playlistActive : true,
             songActive : false,
             learnActive : false,
+
             songDisabled : true,
             learnDisabled : true,
+
             activeStep : 'playlist',
             playlist : 'Choose Playlist',
             playlistHref : '',
@@ -74,22 +77,22 @@ export default class MenuContainer extends Component {
 
     render() {
         const activeStep = this.state.activeStep;
+        const playlist = this.state.playlist;
+        const song = this.state.song;
+        const songDisabled = this.state.songDisabled;
+        const learnDisabled = this.state.learnDisabled;
+
+
         const {playlists, songs} = this.props;
         const videos = this.state.videos;
-        const steps = [ 
-            { key: 'playlist', name: 'playlist', icon: 'spotify', title: 'Playlist', description: this.state.playlist, active : activeStep === 'playlist',  onClick : this.handleStepClick},
-            { key: 'song', name: 'song', icon: 'music', title: 'Song', description: this.state.song, active : activeStep === 'song', disabled : this.state.songDisabled, onClick: this.handleStepClick},
-            { key: 'learn', name: 'learn', icon: 'pied piper alternate', title: 'Learn', description: '', active : activeStep === 'learn', disabled : this.state.learnDisabled, onClick: this.handleStepClick},
-        ];
-
         return (
             <div>
-                <Step.Group unstackable widths={3} items={steps} />
-                    <Segment raised color="purple">
-                        <Playlists visible={activeStep === 'playlist'} playlists={playlists} onClick={this.handlePlaylistClick}/>
-                        <Songs visible={activeStep === 'song'} songs={songs} onClick={this.handleSongClick} />
-                        <Learn visible={activeStep === 'learn'} videos={videos} onClick={this.handleSongClick} />
-                    </Segment>
+                <Steps activeStep={activeStep} playlist={playlist} song={song} songDisabled={songDisabled} learnDisabled={learnDisabled} onClick={this.handleStepClick} />
+                <Segment raised color="purple">
+                    <Playlists visible={activeStep === 'playlist'} playlists={playlists} onClick={this.handlePlaylistClick} />
+                    <Songs visible={activeStep === 'song'} songs={songs} onClick={this.handleSongClick} />
+                    <Learn visible={activeStep === 'learn'} videos={videos} onClick={this.handleSongClick} />
+                </Segment>
             </div>
         );
     }

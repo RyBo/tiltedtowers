@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Menu, Radio, Icon, Input, Transition} from "semantic-ui-react";
+import { Menu, Radio, Icon, Input } from "semantic-ui-react";
 
-class TTSubMenu extends Component {
+class SideMenu extends Component {
 
   state = { activeItem : 'guitar' }
 
@@ -59,40 +59,11 @@ class TTSubMenu extends Component {
 
         <Menu.Item name='github'>
           <Icon name='github' />
-          Github 
+          Github
         </Menu.Item>
     </Menu>
     )
   }
 }
 
-class HeaderMenu extends Component {
-    state = { visible : false }
-
-    toggleSearch = () => this.setState({ visible : !this.state.visible });
-    render() {
-        const { visible } =this.state
-        return (
-        
-            <div>
-
-                <Menu text>
-                    <Menu.Item className="header-title" name='tilted towers'/>
-                    <Menu.Menu position='right'>
-                        <Menu.Item>
-                            <Icon name='ellipsis horizontal' onClick={this.toggleSearch} />
-                        </Menu.Item>
-                    </Menu.Menu>
-                </Menu>
-                <Transition animation="fade left" visible={visible} duration="450">
-                    <div>
-                        <TTSubMenu onClick={this.props.onClick} />
-                    </div>
-                </Transition>
-
-            </div>
-        );
-    }
-}
-
-export default HeaderMenu;
+export default SideMenu;
