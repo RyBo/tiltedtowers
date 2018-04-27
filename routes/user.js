@@ -1,50 +1,64 @@
-exports.login = function(req, res){
-   var message = '';
-   var sess = req.session; 
+const bcrypt = require('bcrypt');
 
-   if(req.method == "POST"){
-      var post  = req.body;
-      var name= post.user_name;
-      var pass= post.password;
-     
-      var sql="SELECT id, first_name, last_name, user_name FROM `users` WHERE `user_name`='"+name+"' and password = '"+pass+"'";                           
-      db.query(sql, function(err, results){      
-         if(results.length){
-            req.session.userId = results[0].id;
-            req.session.user = results[0];
-            console.log(results[0].id);
-            res.redirect('/app');
-         }
-         else{
-            message = 'Wrong Credentials.';
-            res.render('index.ejs',{message: message});
-         }
-                 
-      });
-   } else {
-      res.render('index.ejs',{message: message});
-   }         
+exports.login = function(req, res){
+    var message = '';
+    var sess = req.session; 
+
+    if(req.method == "POST"){
+        var post  = req.body;
+        var username = post.username;
+        var pass = post.password;
+
+        var sql="SELECT userid, username, email, hash FROM `users` WHERE `username`='" + username + "'";
+        db.query(sql, function(err, results){      
+
+            if(results){
+                var hash = results[0].hash;
+
+                // Check hash with supplied password
+                if (bcrypt.compareSync(pass,hash)) {
+                    req.session.userId = results[0].userid;
+                    req.session.user = results[0];
+                    res.redirect('/');
+                } else {
+                    message = 'Wrong Credentials.';
+                    res.render('index.ejs',{message: message});
+                }
+
+            } else {
+                message = 'Wrong Credentials.';
+                res.render('index.ejs',{message: message});
+            }
+        });
+    } else {
+        res.render('index.ejs',{message: message});
+    }         
 };
 
 exports.signup = function(req, res){
-   message = '';
-   if(req.method == "POST"){
-      var post  = req.body;
-      var name= post.user_name;
-      var pass= post.password;
-      var fname= post.first_name;
-      var lname= post.last_name;
-      var mob= post.mob_no;
+    message = '';
+    if(req.method == "POST"){
+        var post  = req.body;
+        var email = post.email;
+        var username = post.username;
+        var pass = post.password;
 
-      var sql = "INSERT INTO `users`(`first_name`,`last_name`,`mob_no`,`user_name`, `password`) VALUES ('" + fname + "','" + lname + "','" + mob + "','" + name + "','" + pass + "')";
+//        var salt = bcrypt.genSaltSync(10);
+        // Bycrypt can generate salt and hash with a single line
+        var hash = bcrypt.hashSync(pass, 10);
 
-      var query = db.query(sql, function(err, result) {
+        var sql = "INSERT INTO `users`(`username`, `hash`, `email`) VALUES ('" + username + "','" + hash + "','" + email + "')";
+        console.log(sql);
+        console.log(db);
 
-         message = "Succesfully! Your account has been created.";
-         res.render('signup.ejs',{message: message});
-      });
+        var query = db.query(sql, function(err, result) {
 
-   } else {
-      res.render('signup');
-   }
+            message = "Your account has been created.";
+            res.render('signup.ejs',{message: message});
+
+       });
+
+    } else {
+        res.render('signup');
+    }
 };

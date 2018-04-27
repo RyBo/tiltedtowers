@@ -1,10 +1,8 @@
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `first_name` text NOT NULL,
-  `last_name` text NOT NULL,
-  `mob_no` int(11) NOT NULL,
-  `user_name` varchar(20) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) 
-ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) NOT NULL,
+  `hash` varchar(64) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;

@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.18.2",
     "ejs": "^2.5.9",
     "express": "^4.16.3",
