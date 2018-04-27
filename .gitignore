@@ -4,6 +4,7 @@
 
 # auth files
 /auth.js
+/sslcert
 
 # dependencies
 /node_modules

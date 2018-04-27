@@ -3,11 +3,13 @@ const express = require('express')
     , api = require('./api')
     , user = require('./routes/user')
     , http = require('http') 
+    , https = require('https') 
     , path = require('path');
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const auth = require('./auth');
+const sslconfig = require('./sslconfig');
 const mysql = require('mysql');
 
 var connection = mysql.createConnection({
@@ -29,7 +31,7 @@ app.use(session({
 }));
 
 // ENV Configuration
-app.set('port', process.env.PORT || 5000);
+//app.set('port', process.env.PORT || 5000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -69,5 +71,6 @@ app.post('/api/youtube', api.youtube);
 // match one above, send back React's index.html file.
 //app.get('*', (req, res) => {
 
-app.listen(5000);
+//app.listen(5000);
+https.createServer(sslconfig.credentials, app).listen(5000);
 console.log(`Backend API listening on port 5000`);
