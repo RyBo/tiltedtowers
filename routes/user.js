@@ -1,33 +1,59 @@
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 
 exports.login = function(req, res){
     var message = '';
     var sess = req.session; 
 
     if(req.method == "POST"){
+
+        var ip = req.ip;
         var post  = req.body;
         var username = post.username;
         var pass = post.password;
 
-        var sql="SELECT userid, username, email, hash FROM `users` WHERE `username`='" + username + "'";
-        db.query(sql, function(err, results){      
+        var action = "none";
+        var time = moment();
 
-            if(results){
-                var hash = results[0].hash;
+        // INSERT login attempt into login table
 
-                // Check hash with supplied password
-                if (bcrypt.compareSync(pass,hash)) {
-                    req.session.userId = results[0].userid;
-                    req.session.user = results[0];
-                    res.redirect('/');
-                } else {
-                    message = 'Wrong Credentials.';
-                    res.render('index.ejs',{message: message});
-                }
+        // Grab all login attempts for this username and ip in the last hour
+        var sql = "SELECT loginid, ip, user, date from `login` WHERE ip='" + ip + "' AND date > '" + time.subtract(1, 'hours').format('YYYY-MM-DD HH:mm:ss') + "' LIMIT 5";
+        db.query(sql, function(err, results) {      
 
-            } else {
-                message = 'Wrong Credentials.';
+            if (results.length >= 3) {
+                console.log("IP has failed login 3 times in the past hour, ignoring attempt.");
+                message = 'Too many failed attempts, try again later.';
+                action = "BANNED";
                 res.render('index.ejs',{message: message});
+            } else {
+                // grab account info
+                //
+                var sql="SELECT userid, username, email, hash FROM `users` WHERE `username`='" + username + "'";
+                db.query(sql, function(err, results) {      
+
+                    if (results.length) {
+                        var hash = results[0].hash;
+
+                        // Check hash with supplied password
+                        if (bcrypt.compareSync(pass,hash)) {
+                            req.session.userId = results[0].userid;
+                            req.session.user = results[0];
+                            res.redirect('/');
+                        } else {
+                            message = 'Wrong Credentials.';
+                            res.render('index.ejs',{message: message});
+                        }
+                    } else {
+                        message = 'Wrong Credentials.';
+                        res.render('index.ejs',{message: message});
+                    }
+                });
+                var time = moment();
+                var sql = "INSERT INTO `login`(`ip`, `user`, `date`, `action`) VALUES ('" + ip + "','" + username + "','" + time.format('YYYY-MM-DD HH:mm:ss') + "','" + action + "')";
+                db.query(sql, function(err, results) {
+                    console.log("IP logged");
+                });
             }
         });
     } else {
@@ -43,7 +69,7 @@ exports.signup = function(req, res){
         var username = post.username;
         var pass = post.password;
 
-//        var salt = bcrypt.genSaltSync(10);
+        //        var salt = bcrypt.genSaltSync(10);
         // Bycrypt can generate salt and hash with a single line
         var hash = bcrypt.hashSync(pass, 10);
 
@@ -56,7 +82,7 @@ exports.signup = function(req, res){
             message = "Your account has been created.";
             res.render('signup.ejs',{message: message});
 
-       });
+        });
 
     } else {
         res.render('signup');

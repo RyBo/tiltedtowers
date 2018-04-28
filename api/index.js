@@ -33,7 +33,6 @@ exports.getAuth = function() {
                 token = response.data['access_token'];
                 authtoken[0] = token;
                 authtoken[1] = expireTime;
-                console.log(authtoken);
                 return resolve(token);
             })
             .catch((error) => {
