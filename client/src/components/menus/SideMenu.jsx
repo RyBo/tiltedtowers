@@ -57,10 +57,23 @@ class SideMenu extends Component {
           </Menu.Menu>
         </Menu.Item>
 
+        <Menu.Item name='logout'>
+
+        <a href="/logout">
+          <Icon name='sign out' />
+            Sign Out
+        </a>
+        </Menu.Item>
+
         <Menu.Item name='github'>
+
+        <a href="http://github.com/rybo">
           <Icon name='github' />
           Github
+
+        </a>
         </Menu.Item>
+
     </Menu>
     )
   }

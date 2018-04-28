@@ -66,7 +66,7 @@ exports.login = function(req, res){
     }         
 };
 
-exports.signup = function(req, res){
+exports.signup = function(req, res) {
     message = '';
     if(req.method == "POST"){
         var post  = req.body;
@@ -90,4 +90,10 @@ exports.signup = function(req, res){
     } else {
         res.render('signup');
     }
+};
+
+exports.logout = function(req, res) {
+    req.session.destroy();
+    res.redirect('/login');
+    return;
 };

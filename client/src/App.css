@@ -78,7 +78,7 @@
 .ui.vertical.menu {
     position: absolute;
     z-index: 5;
-    right: 0px;
+    right: 15px;
     text-align: left;
     width: 12rem;
 }

@@ -57,15 +57,18 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/app.html'));
 });
 
-// Extra Routes
+// User routes
 app.get('/login', routes.index);
-app.post('/login', user.login);
 app.get('/signup', user.signup);
+app.get('/logout', user.logout);
+app.post('/login', user.login);
 app.post('/signup', user.signup);
 
+// API routes
 app.get('/api/spotify/playlists', api.playlists);
 app.get('/api/spotify/users/:user/playlists/:playlist/tracks', api.tracks);
 app.post('/api/youtube', api.youtube);
+
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
