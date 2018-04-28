@@ -18,13 +18,12 @@ exports.login = function(req, res){
         // INSERT login attempt into login table
 
         // Grab all login attempts for this username and ip in the last hour
-        var sql = "SELECT loginid, ip, user, date from `login` WHERE ip='" + ip + "' AND date > '" + time.subtract(1, 'hours').format('YYYY-MM-DD HH:mm:ss') + "' LIMIT 5";
+        var sql = "SELECT loginid, ip, user, date from `login` WHERE ip='" + ip + "' AND action='FAILED' AND date > '" + time.subtract(1, 'hours').format('YYYY-MM-DD HH:mm:ss') + "' LIMIT 5";
         db.query(sql, function(err, results) {      
 
             if (results.length >= 3) {
                 console.log("IP has failed login 3 times in the past hour, ignoring attempt.");
                 message = 'Too many failed attempts, try again later.';
-                action = "BANNED";
                 res.render('index.ejs',{message: message});
             } else {
                 // grab account info
@@ -40,19 +39,25 @@ exports.login = function(req, res){
                             req.session.userId = results[0].userid;
                             req.session.user = results[0];
                             res.redirect('/');
+                            action = "PASS"
                         } else {
-                            message = 'Wrong Credentials.';
+                            message = 'Wrong Credentials';
                             res.render('index.ejs',{message: message});
+                            action = "FAILED"
                         }
+
                     } else {
-                        message = 'Wrong Credentials.';
+                        message = 'Wrong Credentials';
                         res.render('index.ejs',{message: message});
+                        action = "FAILED"
                     }
-                });
-                var time = moment();
-                var sql = "INSERT INTO `login`(`ip`, `user`, `date`, `action`) VALUES ('" + ip + "','" + username + "','" + time.format('YYYY-MM-DD HH:mm:ss') + "','" + action + "')";
-                db.query(sql, function(err, results) {
-                    console.log("IP logged");
+                    var time = moment();
+                    var sql = "INSERT INTO `login`(`ip`, `user`, `date`, `action`) VALUES ('" + ip + "','" + username + "','" + time.format('YYYY-MM-DD HH:mm:ss') + "','" + action + "')";
+                    db.query(sql, function(err, results) {
+                        console.log("IP logged");
+                    });
+
+
                 });
             }
         });
@@ -74,8 +79,6 @@ exports.signup = function(req, res){
         var hash = bcrypt.hashSync(pass, 10);
 
         var sql = "INSERT INTO `users`(`username`, `hash`, `email`) VALUES ('" + username + "','" + hash + "','" + email + "')";
-        console.log(sql);
-        console.log(db);
 
         var query = db.query(sql, function(err, result) {
 
