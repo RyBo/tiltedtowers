@@ -39,25 +39,13 @@ app.use(bodyParser.json());
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-//app.get('/', routes.index);
-
+// Get Spotify authtoken
 var authtoken = ['',''];
 api.getAuth();
 
-
-// Load the REACT App after user logs in
-app.get('/', (req, res) => {
-    var user = req.session.user;
-    userId = req.session.userId;
-
-    if (userId == null) {
-        res.redirect('/login')
-        return;
-    }
-    res.sendFile(path.join(__dirname+'/client/build/app.html'));
-});
-
 // User routes
+app.get('/', routes.index);
+app.get('/app', routes.app);
 app.get('/login', routes.index);
 app.get('/signup', user.signup);
 app.get('/logout', user.logout);

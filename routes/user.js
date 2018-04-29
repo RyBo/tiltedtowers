@@ -24,7 +24,7 @@ exports.login = function(req, res){
             if (results.length >= 3) {
                 console.log("IP has failed login 3 times in the past hour, ignoring attempt.");
                 message = 'Too many failed attempts, try again later.';
-                res.render('index.ejs',{message: message});
+                res.render('login.ejs',{message: message});
             } else {
                 // grab account info
                 //
@@ -42,13 +42,13 @@ exports.login = function(req, res){
                             action = "PASS"
                         } else {
                             message = 'Wrong Credentials';
-                            res.render('index.ejs',{message: message});
+                            res.render('login.ejs',{message: message});
                             action = "FAILED"
                         }
 
                     } else {
                         message = 'Wrong Credentials';
-                        res.render('index.ejs',{message: message});
+                        res.render('login.ejs',{message: message});
                         action = "FAILED"
                     }
                     var time = moment();
@@ -62,7 +62,7 @@ exports.login = function(req, res){
             }
         });
     } else {
-        res.render('index.ejs',{message: message});
+        res.render('login.ejs',{message: message});
     }         
 };
 

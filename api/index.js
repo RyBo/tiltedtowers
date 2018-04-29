@@ -46,7 +46,7 @@ exports.getAuth = function() {
 //app.get('/api/spotify/playlists', (req, res) => {
 exports.playlists = function(req, res) {
 
-//    getAuth();
+    //getAuth();
 
     const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + authtoken[0] };
 
