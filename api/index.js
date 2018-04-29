@@ -8,6 +8,7 @@ var authtoken = ['',''];
 // Helper function for getting Spotify's auth token
 exports.getAuth = function() {
    
+
     var nowTime = new Date();
     var expireTime = authtoken[1];
 
@@ -43,11 +44,9 @@ exports.getAuth = function() {
 };
 
 // Get playlists from spotify's API
-//app.get('/api/spotify/playlists', (req, res) => {
 exports.playlists = function(req, res) {
 
-    //getAuth();
-
+    exports.getAuth();
     const headers = {'Content-Type' : 'application/x-www-form-urlencoded','Authorization' : 'Bearer ' + authtoken[0] };
 
     axios.get('https://api.spotify.com/v1/users/rabidowl/playlists?limit=50', {headers: headers})
@@ -60,10 +59,9 @@ exports.playlists = function(req, res) {
 };
 
 // Get tracks from selected playlist
-//app.get('/api/spotify/users/:user/playlists/:playlist/tracks', (req, res) => {
 exports.tracks = function(req, res) {
 
- //   getAuth();
+   exports.getAuth();
 
     const user = req.params.user;
     const playlist = req.params.playlist;
@@ -80,7 +78,6 @@ exports.tracks = function(req, res) {
 
 
 // Youtube API Access
-//app.post('/api/youtube', (req, res) => {
 exports.youtube = function(req, res) {
 
     const instrument = req.body.instrument;
@@ -98,9 +95,9 @@ exports.youtube = function(req, res) {
 };
 
 // Spotify Search Feature
-//app.get('/api/spotify/search/:query', (req, res) => {
 exports.spotifySearch = function(req, res) {
 
+    exports.getAuth();
     const query = req.params.query;
     const searchParams = 'search?q='+query+'&type=playlist,album,artist&limit=3';
 

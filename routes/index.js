@@ -12,7 +12,7 @@ exports.index = function(req, res) {
         res.render('login.ejs',{message : message});
         return;
     }
-    res.sendFile(path.join(__dirname+'/../client/build/index.html'));
+    res.sendFile(path.join(__dirname+'/../client/build/app.html'));
 
 };
 

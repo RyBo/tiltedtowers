@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Get Spotify authtoken
-var authtoken = ['',''];
+//var authtoken = ['',''];
 api.getAuth();
 
 // User routes
@@ -53,7 +53,7 @@ app.post('/login', user.login);
 app.post('/signup', user.signup);
 
 // API routes
-app.get('/api/spotify/playlists', api.playlists);
+app.get('/api/spotify/playlists', api.playlists, api.getAuth);
 app.get('/api/spotify/users/:user/playlists/:playlist/tracks', api.tracks);
 app.post('/api/youtube', api.youtube);
 
