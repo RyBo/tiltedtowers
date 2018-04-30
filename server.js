@@ -11,17 +11,10 @@ const session = require('express-session');
 const auth = require('./auth');
 const sslconfig = require('./sslconfig');
 const mysql = require('mysql');
-
-var connection = mysql.createConnection({
-    host : auth.mysql_host,
-    user : auth.mysql_user,
-    password : auth.mysql_password,
-    database : auth.mysql_database
-});
-connection.connect();
-global.db = connection;
+const db = require('./db');
 
 const app = express();
+
 // Session Configuration
 app.use(session({
     secret: 'chefpieter',
@@ -40,7 +33,6 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Get Spotify authtoken
-//var authtoken = ['',''];
 api.getAuth();
 
 // User routes
@@ -56,11 +48,6 @@ app.post('/signup', user.signup);
 app.get('/api/spotify/playlists', api.playlists, api.getAuth);
 app.get('/api/spotify/users/:user/playlists/:playlist/tracks', api.tracks);
 app.post('/api/youtube', api.youtube);
-
-
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-//app.get('*', (req, res) => {
 
 app.listen(5000);
 //https.createServer(sslconfig.credentials, app).listen(5000);

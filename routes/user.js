@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const moment = require('moment');
 
+var db = require('../db');
+
 exports.login = function(req, res){
     var message = '';
     var sess = req.session; 
