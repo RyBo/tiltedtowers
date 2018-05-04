@@ -26,23 +26,14 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // Get Spotify authtoken
 api.getAuth();
 
-// User routes
-app.get('/', routes.index);
-app.get('/app', routes.app);
-app.get('/login', routes.index);
-app.get('/signup', user.signup);
-app.get('/logout', user.logout);
-app.post('/login', user.login);
-app.post('/signup', user.signup);
-
-app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-
 // API routes
 app.get('/api/spotify/playlists', api.playlists, api.getAuth);
 app.get('/api/spotify/users/:user/playlists/:playlist/tracks', api.tracks);
 app.post('/api/youtube', api.youtube);
+
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 app.listen(5000);
 //https.createServer(sslconfig.credentials, app).listen(5000);
